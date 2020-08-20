@@ -18,7 +18,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var cardsArray = [Card]()
     var firstFlippedCardIndex: IndexPath?
     var timer: Timer?
-    var milliseconds: Int = 200 * 1000
+    var milliseconds: Int = 120 * 1000
     var soundPlayer = SoundManager()
     
     override func viewDidLoad() {
@@ -215,11 +215,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "Ok", style: .default) {
+            UIAlertAction in self.restartApp()
+        }
         
         alert.addAction(okAction)
         
         self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func restartApp(){
+        milliseconds = 120 * 1000
+        firstFlippedCardIndex = nil
+        timerLabel.textColor = .black
+        
+        viewDidLoad()
         
     }
     
